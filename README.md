@@ -1,6 +1,6 @@
 # Meet Edna
 
-Smart, reliable in-app feature announcements modal
+Smart, reliable in-app feature announcements modal library
 
 ![](https://d1jfzjx68gj8xs.cloudfront.net/items/1I1p1o2o0L0T2A0v1R19/Image%202019-07-19%20at%202.44.37%20PM.jpg)
 
@@ -9,15 +9,19 @@ _My daughter's interpretation of Edna as a mascot_
 ## Highlights
 
 **Prevents Logged In Users From Seeing the Same Modal Twice**
+
 This library leverages redundant methods (localstorage & Google Cloud Functions + Firebase Realtime Database) to ensure that the same user never sees the same message twice.
 
 **Built-in segmentation**
+
 Use segmentation rules to ensure that only the right customers see your in-app message.
 
 **Queue Up Multiple Messages, Without Annoying Users**
+
 You can queue up multiple messages at the same time. Only one will be shown at a time with a one hour buffer between messages.
 
 **Simple JS API**
+
 `EDNA.messagePrevent()` can be called from anywhere to prevent Edna from displaying messages on a given screen. `EDNA.messageHide()` can also be called to programmatically hide a message that is showing.
 
 ## Demo
@@ -33,9 +37,11 @@ Manually deleting the localstorage values for `_edna-t` and `_edna-s` will show 
 You don't really need to clone this repo (which contains demo files) to get things set up on your own server. Instead, I'd recommend the following:
 
 **1) Grab a copy of the JS library**
+
 Grab [this JS file](https://github.com/davemart-in/meetedna/blob/master/public/js/edna-embed-0.1.js) and move it to your own server. Note: You'll want to update the `YOUR-ACCOUNT-HERE` string on [this line](https://github.com/davemart-in/meetedna/blob/master/public/js/edna-embed-0.1.js#L273) with the name of your firebase project once you have it (more on that below).
 
 **2) Grab the base CSS**
+
 Grab a copy of [this CSS file](https://github.com/davemart-in/meetedna/blob/master/public/css/style.css) and move it to your server. Don't forget to [update the reference](https://github.com/davemart-in/meetedna/blob/master/public/js/edna-embed-0.1.js#L138) to this CSS file.
 
 **3) Create a Google Firebase account**
@@ -69,6 +75,7 @@ If you've never set up Cloud Functions before, it's pretty straight forward. Her
 Note: The Firebase Cloud Functions [log section](https://cl.ly/5c0b4acc5fc6) comes in handy if you ever need to troubleshoot something going wrong with your cloud functions. If you `console.log()` something in a function, it will show up here.
 
 **4) Include the Edna embed within the page(s) where you want your message displayed**
+
 We'll go over this in detail in the section below. 
 
 Here's the [config JSON](https://github.com/davemart-in/meetedna/blob/master/public/index.html#L21) for the demo that is shown in the section above.
@@ -145,6 +152,7 @@ Within the messages array we have one or more message objects. Within each messa
 Blocks make up the content that you see within a message. The following blocks are available:
 
 **button**
+
 button takes a `value` string for the button text, a `link` string for the URL that users should be taken to onclick, and an `order` integer to determine what order this block is shown in.
 
 ```
@@ -157,6 +165,7 @@ button takes a `value` string for the button text, a `link` string for the URL t
 ```
 
 **header**
+
 header takes a `value` string for the header text and an `order` integer to determine what order this block is shown in.
 
 ```
@@ -168,6 +177,7 @@ header takes a `value` string for the header text and an `order` integer to dete
 ```
 
 **imageCentered**
+
 imageCentered takes a `value` string for the centered image URL and an `order` integer to determine what order this block is shown in.
 
 ```
@@ -179,6 +189,7 @@ imageCentered takes a `value` string for the centered image URL and an `order` i
 ```
 
 **imageFull**
+
 imageFull takes a `value` string for the full width image URL and an `order` integer to determine what order this block is shown in.
 
 ```
@@ -190,6 +201,7 @@ imageFull takes a `value` string for the full width image URL and an `order` int
 ```
 
 **text**
+
 text takes a `value` string for the paragraph text and an `order` integer to determine what order this block is shown in.
 
 ```
@@ -201,6 +213,7 @@ text takes a `value` string for the paragraph text and an `order` integer to det
 ```
 
 **videoVimeo**
+
 videoVimeo takes a `value` string for the Vimeo embed URL and an `order` integer to determine what order this block is shown in.
 
 ```
@@ -212,6 +225,7 @@ videoVimeo takes a `value` string for the Vimeo embed URL and an `order` integer
 ```
 
 **videoWistia**
+
 videoWistia takes a `value` string for the Wistia embed URL and an `order` integer to determine what order this block is shown in.
 
 ```
@@ -223,6 +237,7 @@ videoWistia takes a `value` string for the Wistia embed URL and an `order` integ
 ```
 
 **videoYoutube**
+
 videoYoutube takes a `value` string for the YouTube embed URL and an `order` integer to determine what order this block is shown in.
 
 ```
@@ -234,12 +249,15 @@ videoYoutube takes a `value` string for the YouTube embed URL and an `order` int
 ```
 
 #### key
+
 The key is simply a unique ID used to differentiate one message from another within the Firebase Real-time DB. It's recommended to keep the key limited to lower case letters and hyphens "-".
 
 #### prioritization
+
 If there are multiple messages, the prioritization integrer determines which one should be shown first.
 
 #### segmentation
+
 The segmentation section allows you to determine exactly who sees a message and who shouldn't. Any user object key/value pair can be used in segmentation in addition to `url` which is [detected automattically](https://github.com/davemart-in/meetedna/blob/master/public/js/edna-embed-0.1.js#L14) within the library. Multiple segmentation rules can be combined for complex segmentation.
 
 ### user object
@@ -247,6 +265,7 @@ The segmentation section allows you to determine exactly who sees a message and 
 The user object consists of user specific data that you'd like to use along side segmentation rules.
 
 **Example**
+
 ```
 "user": {
   "id": userId,
@@ -263,10 +282,13 @@ Note: From a privacy standpoint, on the user ID is passed to Google Cloud Functi
 The following functionality was intentionally left out of the v1 of this library:
 
 **CSS Refinements**
+
 Color/font/padding/margin changes are not made programattically, but via CSS overrides.
 
 **Visual Builder**
+
 For the v1, there is no visual builder experience. To create a new modal, you'll need to manually assemble the various configuration variables (blocks, key, priority, segmentation) within `window.ednaSettings`
 
 **Views Tracking**
+
 I figure most companies will already have a preferred way of tracking things. I've [stubbed out a tracking function](https://github.com/davemart-in/meetedna/blob/master/public/js/edna-embed-0.1.js#L301) within the Edna library where you can add your own tracking code.
