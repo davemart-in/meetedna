@@ -1,6 +1,7 @@
 # Meet Edna
 
 ![](https://d1jfzjx68gj8xs.cloudfront.net/items/1I1p1o2o0L0T2A0v1R19/Image%202019-07-19%20at%202.44.37%20PM.jpg)
+
 _My daughter's interpretation of Edna as a mascot_
 
 Smart, reliable in-app feature announcements modal
