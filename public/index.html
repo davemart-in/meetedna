@@ -1,0 +1,72 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Edna Demo</title>
+  <script>
+    // Temporary code to simulate a logged in user ID
+    // This code can be trashed. It's not needed outside of showcasing a working demo
+    var localUidName = '_temp-uid',
+        userId = localStorage.getItem(localUidName);
+    if (!userId) {
+      userId = Math.floor(Math.random() * 10001) + parseInt(new Date().getTime());
+      // Cache it to simulate logged in user
+      localStorage.setItem(localUidName, userId);
+    }
+  </script>
+</head>
+<body>
+  <script>
+    // START Edna
+    window.ednaSettings = {
+      "messages": [
+        {
+          "blocks": [
+            {
+              "order": 0,
+              "type": "imageCentered",
+              "value": "img/illo.svg"
+            },
+            {
+              "order": 1,
+              "type": "header",
+              "value": "Header Text"
+            },
+            {
+              "order": 2,
+              "type": "text",
+              "value": "Paragraph text"
+            },
+            {
+              "link": "http://example.net",
+              "order": 3,
+              "type": "button",
+              "value": "Learn More"
+            }
+          ],
+          "key": "earn-section", // Unique ID for each message, lower case letters and '-' only
+          "priority": 1, // Lower the integer, the higher the priortity
+          "segmentation": [
+            {
+              "condition": "contains",
+              "key": "url",
+              "value": "firebaseapp.com"
+            },
+            {
+              "condition": "equals",
+              "key": "role",
+              "value": "administrator"
+            },
+          ]
+        }
+      ],
+      "user": {
+        "id": userId,
+        "role": "administrator"
+      }
+    };
+    (function(){var d=document;var w=window;function l(){var s = d.createElement('script');s.type='text/javascript';s.async=true;s.src='js/edna-embed-0.1.js';x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}})();
+    // END Edna
+  </script>
+</body>
+</html>
